@@ -1,0 +1,737 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Juridica",
+        "version": "1.0 (2024-07-22)"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8081/legal/public/"
+        }
+    ],
+    "paths": {
+        "/api/action": {
+            "get": {
+                "tags": [
+                    "Action"
+                ],
+                "summary": "Get all actions",
+                "operationId": "0e230644ef4b723a3bb9a9ceb8bec6b4",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get account user information"
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/class": {
+            "get": {
+                "tags": [
+                    "Class"
+                ],
+                "summary": "Get all class",
+                "operationId": "46403a8934b67b310f227b57e25a3be6",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get account user information"
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/office": {
+            "get": {
+                "tags": [
+                    "Office"
+                ],
+                "summary": "Get all Office",
+                "operationId": "9c6bdf78328916c7a52a490ed702d975",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get account user information"
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/person": {
+            "get": {
+                "tags": [
+                    "Person"
+                ],
+                "summary": "Get all person or Search full_name and Doc",
+                "operationId": "74d719561741d8f0cf67db2cd1664ca1",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "names or doc",
+                        "required": false,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Person"
+                ],
+                "summary": "Create Person",
+                "operationId": "e3fa321f1f16f618321269761b9dce45",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body Description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "examples": {
+                                "result": {
+                                    "summary": "An result object.",
+                                    "value": {
+                                        "full_name": "",
+                                        "surnames": "",
+                                        "type_doc": "",
+                                        "number_doc": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/person/{id}": {
+            "put": {
+                "tags": [
+                    "Person"
+                ],
+                "summary": "Update Person",
+                "operationId": "1a7473b83a56b2325d2df07319dd3140",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "full_name",
+                                    "surnames",
+                                    "type_doc",
+                                    "number_doc"
+                                ],
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "USUARIO"
+                                    },
+                                    "surnames": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "USUARIO"
+                                    },
+                                    "type_doc": {
+                                        "type": "string",
+                                        "maxLength": 5,
+                                        "example": "CC"
+                                    },
+                                    "number_doc": {
+                                        "type": "string",
+                                        "maxLength": 20,
+                                        "example": "1111111111"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Recurso actualizado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "Process"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Recurso no encontrado"
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Person"
+                ],
+                "summary": "Delete Process",
+                "operationId": "05193f8fab9847a46b83fc7584ac35f0",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recurso actualizado con éxito"
+                    },
+                    "404": {
+                        "description": "Recurso no encontrado"
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            }
+        },
+        "/api/possibility_failure": {
+            "get": {
+                "tags": [
+                    "PossibilityFailure"
+                ],
+                "summary": "Get all Status",
+                "operationId": "9105ac3224cc22b627001966e668eecd",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get account user information"
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/legal-process": {
+            "get": {
+                "tags": [
+                    "Legal-Process"
+                ],
+                "summary": "Get all process or Search",
+                "operationId": "4b207a71dfe974855c3507a7b1079a1d",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Legal-Process"
+                ],
+                "summary": "Create Process",
+                "operationId": "31ccf9cf523e07f6b2e35566dea28c33",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body Description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "examples": {
+                                "result": {
+                                    "summary": "An result object.",
+                                    "value": {
+                                        "city": "123456",
+                                        "office_id": 1,
+                                        "demanding_id": 1,
+                                        "defendant_id": 1,
+                                        "attorney_id": 2,
+                                        "niu": "123",
+                                        "reference_internal": "123",
+                                        "reference_external": "123",
+                                        "facts": "123",
+                                        "class_procces_id": 1,
+                                        "action_id": 1,
+                                        "status_id": 1,
+                                        "failure_possibility_id": 1,
+                                        "failure_possibility": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/legal-process/{id}": {
+            "put": {
+                "tags": [
+                    "Legal-Process"
+                ],
+                "summary": "Update Process",
+                "operationId": "704b19a91896e78764f1669680df5c7e",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "city",
+                                    "office_id",
+                                    "demanding_id",
+                                    "defendant_id",
+                                    "attorney_id",
+                                    "niu",
+                                    "reference_internal",
+                                    "reference_external",
+                                    "facts",
+                                    "class_procces_id",
+                                    "action_id",
+                                    "status_id",
+                                    "failure_possibility_id",
+                                    "failure_possibility"
+                                ],
+                                "properties": {
+                                    "city": {
+                                        "type": "string",
+                                        "maxLength": 6,
+                                        "example": "NY"
+                                    },
+                                    "office_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "demanding_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "defendant_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "attorney_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "niu": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "123456"
+                                    },
+                                    "reference_internal": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "internal_ref"
+                                    },
+                                    "reference_external": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "external_ref"
+                                    },
+                                    "facts": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Some facts"
+                                    },
+                                    "class_procces_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "action_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "status_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "failure_possibility_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "failure_possibility": {
+                                        "type": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Recurso actualizado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "Process"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Recurso no encontrado"
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Legal-Process"
+                ],
+                "summary": "Delete Process",
+                "operationId": "3b8484b637e765dde946006dc2b3b768",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recurso actualizado con éxito"
+                    },
+                    "404": {
+                        "description": "Recurso no encontrado"
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Process": {
+                "title": "Process",
+                "description": "Modelo de ejemplo",
+                "required": [
+                    "id",
+                    "city",
+                    "office_id",
+                    "demanding_id",
+                    "defendant_id",
+                    "attorney_id",
+                    "niu",
+                    "reference_internal",
+                    "reference_external",
+                    "facts",
+                    "class_procces_id",
+                    "action_id",
+                    "status_id",
+                    "failure_possibility_id",
+                    "failure_possibility"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "NY"
+                    },
+                    "office_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "demanding_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "defendant_id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "attorney_id": {
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "niu": {
+                        "type": "string",
+                        "example": "123456"
+                    },
+                    "reference_internal": {
+                        "type": "string",
+                        "example": "internal_ref"
+                    },
+                    "reference_external": {
+                        "type": "string",
+                        "example": "external_ref"
+                    },
+                    "facts": {
+                        "type": "string",
+                        "example": "Some facts"
+                    },
+                    "class_procces_id": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "action_id": {
+                        "type": "integer",
+                        "example": 6
+                    },
+                    "status_id": {
+                        "type": "integer",
+                        "example": 7
+                    },
+                    "failure_possibility_id": {
+                        "type": "integer",
+                        "example": 8
+                    },
+                    "failure_possibility": {
+                        "type": "string",
+                        "example": "High"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Action",
+            "description": "Tipo de accion del proceso."
+        },
+        {
+            "name": "Class",
+            "description": "Tipo de clase del proceso."
+        },
+        {
+            "name": "Office",
+            "description": "Despachos."
+        },
+        {
+            "name": "Person",
+            "description": "Personas."
+        },
+        {
+            "name": "PossibilityFailure",
+            "description": "Posible fracaso"
+        },
+        {
+            "name": "Legal-Process",
+            "description": "Procesos legales."
+        }
+    ]
+}
