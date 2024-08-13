@@ -9,6 +9,11 @@ class Office extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'address',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

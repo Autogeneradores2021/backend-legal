@@ -107,4 +107,18 @@ DELETE /users/{user} destroy users.destroy
 
 1. php artisan lang:publish
 
+# Crear controlador basico laravel
+
+1.  php artisan make:controller [Nombre]
+
 https://medium.com/@a3rxander/implementar-un-backend-api-en-laravel-10x-con-laravel-breeze-efd9fe49f408
+
+# Crear Migracion
+
+1. php artisan make:migration create_categories_table
+
+2. php artisan migrate --path=/database/migrations/nombre_completo_del_archivo_de_migracion.php
+
+# Observer
+
+php artisan make:observer XXXXObserver --model=XXX

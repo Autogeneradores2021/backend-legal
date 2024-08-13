@@ -15,11 +15,12 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Process::class)->constrained();
             $table->boolean('state')->comment("1 Activo - 0 Inactivo");
-            $table->decimal('demand')->comment('valor de demanda');
-            $table->decimal('provisions')->comment('valor de provision');
-            $table->decimal('financial_report')->comment('valor reporte al area financiera');
+            $table->decimal('demand', 20)->comment('valor de demanda');
+            $table->decimal('provisions', 20)->comment('valor de provision');
+            $table->decimal('financial_report', 20)->comment('valor reporte al area financiera');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->string('user', 255);
         });
     }
 

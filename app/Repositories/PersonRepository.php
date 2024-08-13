@@ -3,21 +3,40 @@
 namespace App\Repositories;
 
 use App\Models\Person;
-
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class PersonRepository
 {
 
 
+    private function buildQuery($query, $key, $value)
+    {
+        if ($key == 'id') {
+            return $query->where($key, $value);
+        }
+        return $query->where($key, 'like', '%' . $value . '%');
+    }
+
     public function search($search)
     {
         $result = Person::when($search, function ($query, $search) {
-            return $query->where('full_name', 'like', '%' . $search . '%');
+            $data = json_decode($search, true);
+            foreach ($data as $key => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $subKey => $subValue) {
+                        $query->whereHas($key, function (EloquentBuilder $query) use ($subKey, $subValue) {
+                            $this->buildQuery($query, $subKey, $subValue);
+                        });
+                    }
+                } else {
+                    $this->buildQuery($query, $key, $value);
+                }
+            }
         });
 
-        if ($search) {
+        /*if ($search) {
             return $result->get();
-        }
+        }*/
 
         return $result->paginate();
     }
@@ -40,7 +59,11 @@ class PersonRepository
             throw new \Exception(__('messages.query.empty'), 0);
         }
 
-        return $person->update($data);
+        $person->update($data);
+
+        $person->refresh();
+
+        return $person;
     }
 
     public function delete($id)

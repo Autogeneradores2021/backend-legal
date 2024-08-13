@@ -38,6 +38,34 @@
                 }
             }
         },
+        "/api/city": {
+            "get": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Get all Cities",
+                "operationId": "c2504917c4da1139bffc3dd1d5409f8f",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get account user information"
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
         "/api/class": {
             "get": {
                 "tags": [
@@ -73,6 +101,200 @@
                 ],
                 "summary": "Get all Office",
                 "operationId": "9c6bdf78328916c7a52a490ed702d975",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get account user information"
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Office"
+                ],
+                "summary": "Create Office",
+                "operationId": "4f56e944a201491f6b9d37b65e0721c8",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body Description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "examples": {
+                                "result": {
+                                    "summary": "An result object.",
+                                    "value": {
+                                        "name": "",
+                                        "address": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/office/{id}": {
+            "put": {
+                "tags": [
+                    "Office"
+                ],
+                "summary": "Update Office",
+                "operationId": "f08798eaec05c1d994258540914c1f1e",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "address",
+                                    "type_doc",
+                                    "number_doc"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Office 1"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Office 1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Recurso actualizado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "Process"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Recurso no encontrado"
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Office"
+                ],
+                "summary": "Delete Office",
+                "operationId": "b776666f2803ad6288d55be4ec0e3252",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recurso actualizado con éxito"
+                    },
+                    "404": {
+                        "description": "Recurso no encontrado"
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            }
+        },
+        "/api/common": {
+            "get": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "Get actions,offices and failures",
+                "operationId": "d5a403ac6bd7b6763a09e3283696fabb",
                 "parameters": [
                     {
                         "name": "x-token",
@@ -608,6 +830,34 @@
                     }
                 }
             }
+        },
+        "/api/status": {
+            "get": {
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Get all Status",
+                "operationId": "ba26089b59c876a5fa5c5c75513e0d49",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get account user information"
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -714,12 +964,20 @@
             "description": "Tipo de accion del proceso."
         },
         {
+            "name": "City",
+            "description": "Ciudades."
+        },
+        {
             "name": "Class",
             "description": "Tipo de clase del proceso."
         },
         {
             "name": "Office",
             "description": "Despachos."
+        },
+        {
+            "name": "Common",
+            "description": "comunes."
         },
         {
             "name": "Person",
@@ -732,6 +990,10 @@
         {
             "name": "Legal-Process",
             "description": "Procesos legales."
+        },
+        {
+            "name": "Status",
+            "description": "Estado para los procesos."
         }
     ]
 }

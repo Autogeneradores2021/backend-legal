@@ -10,7 +10,7 @@ class ProccessReqService implements IRequest
     public function getRules(): array
     {
         return [
-            'city' => 'required|string|max:6',
+            'city_id' => 'required|string|max:6',
             'office_id' => 'required|numeric',
             'demanding_id' => 'required|numeric',
             'defendant_id' => 'required|numeric',
@@ -23,16 +23,20 @@ class ProccessReqService implements IRequest
             'action_id' => 'required|numeric',
             'status_id' => 'required|numeric',
             'failure_possibility_id' => 'required|numeric',
-            'failure_possibility' => 'required',
+            'failure_possibility_niif' => 'required',
+
+            'demand' => 'required|numeric',
+            'provisions' => 'required|numeric',
+            'financial_report' => 'required|numeric',
         ];
     }
 
     public function getMessages(): array
     {
         return [
-            'city.required' => 'La ciudad es obligatoria.',
-            'city.string' => 'La ciudad debe ser una cadena de texto.',
-            'city.max' => 'La ciudad no puede tener más de 6 caracteres.',
+            'city_id.required' => 'La ciudad es obligatoria.',
+            'city_id.string' => 'La ciudad debe ser una cadena de texto.',
+            'city_id.max' => 'La ciudad no puede tener más de 6 caracteres.',
             'office_id.required' => 'El ID de la oficina es obligatorio.',
             'office_id.numeric' => 'El ID de la oficina debe ser un número.',
             'demanding_id.required' => 'El ID del demandante es obligatorio.',
@@ -61,7 +65,12 @@ class ProccessReqService implements IRequest
             'status_id.numeric' => 'El ID del estado debe ser un número.',
             'failure_possibility_id.required' => 'El ID de la posibilidad de falla es obligatorio.',
             'failure_possibility_id.numeric' => 'El ID de la posibilidad de falla debe ser un número.',
-            'failure_possibility.required' => 'La posibilidad de falla es obligatoria.',
+            'failure_possibility_niif.required' => 'La posibilidad de falla es obligatoria.',
+
+            'demand.required' => 'Valor demand es obligatorio.',
+            'provisions.required' => 'Valor provisions es obligatorio.',
+            'financial_report.required' => 'Valor financial_report es obligatorio.',
+
         ];
     }
 }

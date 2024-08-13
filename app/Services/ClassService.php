@@ -2,21 +2,21 @@
 
 namespace App\Services;
 
-use App\Repositories\ActionRepository;
+use App\Repositories\ClassRepository;
 
 class ClassService
 {
 
-    protected $actionRepository;
+    protected $classRepository;
 
-    public function __construct(ActionRepository $actionRepository)
+    public function __construct(ClassRepository $classRepository)
     {
-        $this->actionRepository = $actionRepository;
+        $this->classRepository = $classRepository;
     }
 
     public function all()
     {
-        return $this->actionRepository->all();
+        return $this->classRepository->all();
     }
 
 }

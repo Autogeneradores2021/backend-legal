@@ -9,6 +9,15 @@ class ProcessValue extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'process_id',
+        'state',
+        'demand',
+        'provisions',
+        'financial_report',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

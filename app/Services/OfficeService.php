@@ -21,4 +21,19 @@ class OfficeService
         return $this->officeRepository->all();
     }
 
+    public function create($person)
+    {
+        return $this->officeRepository->create($person);
+    }
+
+    public function update($id, $process)
+    {
+        return $this->officeRepository->update($id, $process);
+    }
+
+    public function delete($id)
+    {
+        return $this->officeRepository->delete($id);
+    }
+
 }

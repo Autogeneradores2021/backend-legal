@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Action;
+use App\Models\City;
 use App\Models\ClassProcces;
 use App\Models\Office;
 use App\Models\Status;
@@ -17,7 +18,8 @@ return new class extends Migration {
     {
         Schema::create('processes', function (Blueprint $table) {
             $table->id();
-            $table->string('city', 6)->comment("Código DANE");
+            $table->string('city_id', 6)->comment("Código DANE");
+
             $table->foreignIdFor(Office::class)->constrained();
 
             $table->foreignId('demanding_id')->comment("demandante")->constrained('persons');
@@ -35,9 +37,16 @@ return new class extends Migration {
 
             $table->foreignIdFor(FailurePossibility::class)->constrained();
 
-            $table->boolean('failure_possibility');
+            $table->boolean('failure_possibility_niif');
+
+            $table->decimal('demand', 20)->comment('valor de demanda');
+            $table->decimal('provisions', 20)->comment('valor de provision');
+            $table->decimal('financial_report', 20)->comment('valor reporte al area financiera');
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+
+            $table->string('user', 255);
         });
     }
 

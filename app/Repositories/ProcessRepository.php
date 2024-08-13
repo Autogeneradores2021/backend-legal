@@ -3,22 +3,48 @@
 namespace App\Repositories;
 
 use App\Models\Process;
-use App\Services\ProcessService;
-
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class ProcessRepository
 {
+
+    private function buildQuery($query, $key, $value)
+    {
+        if ($key == 'id') {
+            return $query->where($key, $value);
+        }
+        return $query->where($key, 'like', '%' . $value . '%');
+    }
 
     public function search($search)
     {
 
         $result = Process::when($search, function ($query, $search) {
-            //return $query->where('full_name', 'like', '%' . $search . '%');
-        });
 
-        if ($search) {
-            return $result->get();
-        }
+            $data = json_decode($search, true);
+            foreach ($data as $key => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $subKey => $subValue) {
+                        $query->whereHas($key, function (EloquentBuilder $query) use ($subKey, $subValue) {
+                            $this->buildQuery($query, $subKey, $subValue);
+                        });
+                    }
+                } else {
+                    $this->buildQuery($query, $key, $value);
+                }
+            }
+
+        })
+            ->with('action')
+            ->with('office')
+            ->with('demanding')
+            ->with('defendant')
+            ->with('attorney')
+            ->with('classProcces')
+            ->with('status')
+            ->with('failurePossibility')
+            ->with('city');
+
 
         return $result->paginate();
     }
@@ -28,9 +54,26 @@ class ProcessRepository
         return Process::paginate();
     }
 
+    public function findById($id)
+    {
+        return Process::find($id);
+    }
+
     public function create($process)
     {
-        return Process::create($process);
+        $result = Process::create($process);
+
+        return Process::where('id', $result->id)
+            ->with('action')
+            ->with('office')
+            ->with('demanding')
+            ->with('defendant')
+            ->with('attorney')
+            ->with('classProcces')
+            ->with('status')
+            ->with('failurePossibility')
+            ->with('city')->first();
+
     }
 
     public function update($id, $data)
@@ -41,7 +84,12 @@ class ProcessRepository
             throw new \Exception(__('messages.query.empty'), 0);
         }
 
-        return $process->update($data);
+        $process->update($data);
+
+        $process->refresh();
+
+        return $process;
+
     }
 
     public function delete($id)

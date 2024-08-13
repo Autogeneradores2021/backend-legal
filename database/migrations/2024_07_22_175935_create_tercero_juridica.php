@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('number_doc', 20);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->string('user', 255);
         });
     }
 

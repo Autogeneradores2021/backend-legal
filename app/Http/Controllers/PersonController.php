@@ -194,8 +194,8 @@ class PersonController extends Controller
         $person = $request->validated();
 
         try {
-            $this->personService->update($id, $person);
-            return $this->response->message(__('messages.query.update'))->build();
+            $result = $this->personService->update($id, $person);
+            return $this->response->data($result)->message(__('messages.query.update'))->build();
         } catch (\Throwable $th) {
             $message = $th->getMessage() . ' - ' . $th->getLine();
             return $this->response->status(500)->message($message)->success(false)->build();
