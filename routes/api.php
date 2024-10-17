@@ -3,11 +3,13 @@
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\IpcController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\PossibilityFailureController;
 use App\Http\Controllers\ProcessController;
+use App\Http\Controllers\ProcessValueController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,8 @@ Route::resource('possibility_failure', PossibilityFailureController::class);
 Route::resource('office', OfficeController::class);
 Route::resource('person', PersonController::class);
 Route::resource('legal-process', ProcessController::class);
+Route::resource('value-process', ProcessValueController::class);
 Route::resource('common', ParameterController::class);
 Route::resource('city', CityController::class);
+Route::resource('ipc', IpcController::class);
 

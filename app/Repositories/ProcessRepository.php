@@ -5,15 +5,12 @@ namespace App\Repositories;
 use App\Models\Process;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
-class ProcessRepository
+class ProcessRepository extends BaseRepository
 {
 
-    private function buildQuery($query, $key, $value)
+    public function __construct(Process $model)
     {
-        if ($key == 'id') {
-            return $query->where($key, $value);
-        }
-        return $query->where($key, 'like', '%' . $value . '%');
+        parent::__construct($model);
     }
 
     public function search($search)

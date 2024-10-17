@@ -122,3 +122,8 @@ https://medium.com/@a3rxander/implementar-un-backend-api-en-laravel-10x-con-lara
 # Observer
 
 php artisan make:observer XXXXObserver --model=XXX
+
+
+# Run Test
+php artisan test --filter ProvisionAdjustmentTest
+

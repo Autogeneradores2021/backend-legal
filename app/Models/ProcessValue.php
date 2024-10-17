@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class ProcessValue extends Model
 {
@@ -16,6 +17,9 @@ class ProcessValue extends Model
         'demand',
         'provisions',
         'financial_report',
+        'ipc',
+        'month',
+        'year'
     ];
 
     /**
@@ -23,5 +27,10 @@ class ProcessValue extends Model
      *
      * @var array
      */
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['updated_at'];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
 }

@@ -14,6 +14,9 @@ return new class extends Migration {
         Schema::create('process_values', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Process::class)->constrained();
+            $table->string('year', 4);
+            $table->string('month', 15);
+            $table->double('ipc');
             $table->boolean('state')->comment("1 Activo - 0 Inactivo");
             $table->decimal('demand', 20)->comment('valor de demanda');
             $table->decimal('provisions', 20)->comment('valor de provision');

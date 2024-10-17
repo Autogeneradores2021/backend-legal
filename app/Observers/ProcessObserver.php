@@ -22,7 +22,21 @@ class ProcessObserver
      */
     public function created(Process $process): void
     {
-        Log::info("ProcessObserver created: ");
+        try {
+
+            $fieldsNew = [
+                'process_id' => $process->id,
+                'state' => -1,
+                'provisions' => floatval($process->provisions),
+                'demand' => 0,
+                'financial_report' => 0
+            ];
+
+            $this->processValueRepository->create($fieldsNew);
+
+        } catch (\Throwable $th) {
+            Log::info("ProcessObserver : " . $th->getMessage() . ' - ' . $th->getLine());
+        }
     }
 
     /**
@@ -44,7 +58,7 @@ class ProcessObserver
                 'financial_report' => $process->financial_report,
             ];
 
-            $this->processValueRepository->create($process->id, $fieldsOld, $fieldsNew);
+            // $this->processValueRepository->create($process->id, $fieldsOld, $fieldsNew);
         } catch (\Throwable $th) {
             Log::info("ProcessObserver : " . $th->getMessage() - $th->getLine());
         }

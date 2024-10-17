@@ -94,6 +94,180 @@
                 }
             }
         },
+        "/api/ipc": {
+            "get": {
+                "tags": [
+                    "IPC"
+                ],
+                "summary": "Get all IPC or Search",
+                "operationId": "b1996f8a7d166d64f9e46c768cf472e2",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "IPC"
+                ],
+                "summary": "Create IPC",
+                "operationId": "51c1fd706e3a6f3c6eacfce46336b26a",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body Description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "examples": {
+                                "result": {
+                                    "summary": "An result object.",
+                                    "value": {
+                                        "years": "2024",
+                                        "month": "Enero",
+                                        "ipc_percentage": 0,
+                                        "user_created": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
+        "/api/ipc/{id}": {
+            "put": {
+                "tags": [
+                    "IPC"
+                ],
+                "summary": "Update IPC",
+                "operationId": "6cae93bc280a227a83567d7d6e692a93",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "years",
+                                    "month",
+                                    "ipc_percentage",
+                                    "user_updated"
+                                ],
+                                "properties": {
+                                    "years": {
+                                        "type": "string",
+                                        "maxLength": 4,
+                                        "example": "2024"
+                                    },
+                                    "month": {
+                                        "type": "string",
+                                        "maxLength": 20,
+                                        "example": "Enero"
+                                    },
+                                    "ipc_percentage": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "user_updated": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "usuario.electrohuila"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Recurso actualizado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "Process"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Recurso no encontrado"
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            }
+        },
         "/api/office": {
             "get": {
                 "tags": [
@@ -831,6 +1005,43 @@
                 }
             }
         },
+        "/api/value-process": {
+            "get": {
+                "tags": [
+                    "Values"
+                ],
+                "summary": "Get all cost o values of process",
+                "operationId": "ae44eae7163bd5afc5d9a63dcef5cbc6",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "id of process",
+                        "required": false,
+                        "example": {
+                            "id": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
         "/api/status": {
             "get": {
                 "tags": [
@@ -972,6 +1183,10 @@
             "description": "Tipo de clase del proceso."
         },
         {
+            "name": "IPC",
+            "description": "Índice de Precios al Consumidor (IPC) - DANE."
+        },
+        {
             "name": "Office",
             "description": "Despachos."
         },
@@ -994,6 +1209,10 @@
         {
             "name": "Status",
             "description": "Estado para los procesos."
+        },
+        {
+            "name": "Values",
+            "description": "Values"
         }
     ]
 }

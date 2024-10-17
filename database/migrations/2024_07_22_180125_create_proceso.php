@@ -46,6 +46,9 @@ return new class extends Migration {
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
+            $table->string('user_created', 255);
+            $table->string('user_updated', 255)->nullable();
+
             $table->string('user', 255);
         });
     }
