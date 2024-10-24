@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+    backend:
+        restart: always
+        volumes:
+            - ./:/var/www/html/
+        ports:
+            - 8011:80
