@@ -37,12 +37,12 @@ RUN apt-get update && apt-get install -y \
 # Instala locales
 RUN apt-get install -y locales && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
-# Actualizar composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 # Install composer
 # RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Instala composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN chmod +x /usr/bin/composer
 
 # Descarga los archivos de Oracle Instant Client
 COPY ./docker/config/instantclient-basic-linux.x64-21.3.0.0.0.zip /tmp/
@@ -119,11 +119,11 @@ RUN ls
 #RUN chmod -R 777 $APP_HOME/bootstrap
 
 # instalar dependencias del proyecto
-RUN composer install --optimize-autoloader --no-dev
+#RUN composer install --optimize-autoloader --no-dev
 
 # Limpiar cache
-RUN php artisan optimize:clear
-RUN php artisan key:generate --force
+#RUN php artisan optimize:clear
+#RUN php artisan key:generate --force
 
 
 EXPOSE 8011
