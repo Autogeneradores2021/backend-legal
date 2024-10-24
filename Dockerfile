@@ -107,27 +107,27 @@ RUN a2enmod ssl
 RUN a2enmod socache_shmcb
 RUN a2ensite default-ssl
 
-# cambiar directorio de trabajo
+#cambiar directorio de trabajo
 USER $USER
 WORKDIR $APP_HOME
 
 
-# Copiar archivos fuente y archivo de configuración
+#Copiar archivos fuente y archivo de configuración
 COPY --chown=${USERNAME}:${USERNAME} . $APP_HOME/
 
-# Crear upload
+#Crear upload
 RUN mkdir -p public/upload
 
-# Permisos
-#RUN chmod -R 777 $APP_HOME/storage
-#RUN chmod -R 777 $APP_HOME/bootstrap
+#Permisos
+RUN chmod -R 777 $APP_HOME/storage
+RUN chmod -R 777 $APP_HOME/bootstrap
 
-# instalar dependencias del proyecto
-#RUN composer install --optimize-autoloader --no-dev
+#instalar dependencias del proyecto
+RUN composer install --optimize-autoloader --no-dev
 
-# Limpiar cache
-#RUN php artisan optimize:clear
-#RUN php artisan key:generate --force
+#Limpiar cache
+RUN php artisan optimize:clear
+RUN php artisan key:generate --force
 
 
 EXPOSE 8011
