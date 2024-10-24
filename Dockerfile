@@ -126,8 +126,8 @@ RUN chmod -R 777 $APP_HOME/bootstrap
 RUN composer install --optimize-autoloader --no-dev
 
 #Limpiar cache
-RUN php artisan optimize:clear
-RUN php artisan key:generate --force
+#RUN php artisan optimize:clear
+#RUN php artisan key:generate --force
 
 
 EXPOSE 8011
