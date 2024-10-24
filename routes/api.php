@@ -4,6 +4,7 @@ use App\Http\Controllers\ActionController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\IpcController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\PersonController;
@@ -32,4 +33,6 @@ Route::resource('value-process', ProcessValueController::class);
 Route::resource('common', ParameterController::class);
 Route::resource('city', CityController::class);
 Route::resource('ipc', IpcController::class);
+Route::resource('login', LoginController::class);
+
 

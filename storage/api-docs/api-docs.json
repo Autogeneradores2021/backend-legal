@@ -268,6 +268,41 @@
                 }
             }
         },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Login User",
+                "operationId": "8c7cb526928e8104986931855ef24f87",
+                "requestBody": {
+                    "description": "Request Body Description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "examples": {
+                                "result": {
+                                    "summary": "An result object.",
+                                    "value": {
+                                        "user": "",
+                                        "password": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
         "/api/office": {
             "get": {
                 "tags": [
@@ -1185,6 +1220,10 @@
         {
             "name": "IPC",
             "description": "Índice de Precios al Consumidor (IPC) - DANE."
+        },
+        {
+            "name": "Login",
+            "description": "Despachos."
         },
         {
             "name": "Office",

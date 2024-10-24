@@ -2,22 +2,19 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Services\ProccessReqService;
 use App\Utils\ResponseBuilder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-
-class ProcessUpdateRequest extends FormRequest
+class UserLoginRequest extends FormRequest
 {
 
-    protected $validate;
+
     protected $response;
 
-    public function __construct(ResponseBuilder $response, ProccessReqService $validate)
+    public function __construct(ResponseBuilder $response)
     {
-        $this->validate = $validate;
         $this->response = $response;
     }
 
@@ -36,16 +33,23 @@ class ProcessUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = $this->validate->getRules();
-        $rules['user_updated'] = 'required|string|max:255';
-        return $rules;
+        return [
+            'user' => 'required|string|max:255',  // Usuario es requerido y debe ser una cadena de texto
+            'password' => 'required|string|min:6', // La contraseña es requerida y debe tener al menos 6 caracteres
+        ];
     }
 
+    // Mensajes de error personalizados (opcional)
     public function messages()
     {
-        $messages = $this->validate->getMessages();
-        $messages['user_updated.required'] = 'Usuario es obligatorio';
-        return $messages;
+        return [
+            'user.required' => 'El campo usuario es obligatorio.',
+            'user.string' => 'El campo usuario debe ser una cadena de texto.',
+            'user.max' => 'El campo usuario no puede tener más de 255 caracteres.',
+            'password.required' => 'El campo contraseña es obligatorio.',
+            'password.string' => 'El campo contraseña debe ser una cadena de texto.',
+            'password.min' => 'El campo contraseña debe tener al menos 6 caracteres.',
+        ];
     }
 
     protected function failedValidation(Validator $validator)

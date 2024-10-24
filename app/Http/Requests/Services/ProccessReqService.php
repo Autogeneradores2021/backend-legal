@@ -28,6 +28,10 @@ class ProccessReqService implements IRequest
             'demand' => 'required|numeric',
             'provisions' => 'required|numeric',
             'financial_report' => 'required|numeric',
+
+            'year' => 'required|string|max:4',
+            'month' => 'required|string|max:15'
+
         ];
     }
 
@@ -70,6 +74,8 @@ class ProccessReqService implements IRequest
             'demand.required' => 'Valor demand es obligatorio.',
             'provisions.required' => 'Valor provisions es obligatorio.',
             'financial_report.required' => 'Valor financial_report es obligatorio.',
+
+
 
         ];
     }

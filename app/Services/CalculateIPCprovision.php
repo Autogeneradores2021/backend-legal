@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\IPCRepository;
-use App\Repositories\ProcessRepository;
 use App\Repositories\ProcessValueRepository;
 
 class CalculateIPCprovision
@@ -18,15 +17,35 @@ class CalculateIPCprovision
         $this->processValueRepository = $processValueRepository;
     }
 
+
+
     public function calculateAllByYear($year)
     {
-
         $process = $this->getProccess();
-        foreach ($process as $proce) {
+        $this->calculateByProccess($process, $year, 1);
+    }
 
-            for ($month = 1; $month <= 12; $month++) {
+    public function calculateProccess($process, $year, $month)
+    {
+        $months = config('app.months');
+
+        $this->calculateByProccess($process, $year, $months[$month]);
+
+    }
+
+    private function calculateByProccess($process, $year, $pmonth)
+    {
+        \Log::error($process);
+
+        foreach ($process as $proce) {
+            for ($month = $pmonth; $month <= 12; $month++) {
 
                 $ipc = $this->iPCNowAndLast($year, $month);
+
+                \Log::error("***********************");
+                \Log::error($proce);
+                \Log::error($ipc['ipcNow']);
+                \Log::error($ipc['ipcLast']);
 
                 if ($ipc['ipcNow'] == 0) {
                     break;
@@ -41,10 +60,10 @@ class CalculateIPCprovision
                 $this->saveProvisions($proce['process_id'], $year, $month, $ipc['ipcNow'], $provisions);
 
             }
-
         }
-
     }
+
+
 
     private function saveProvisions($processId, $year, $month, $ipc, $provisions)
     {
@@ -110,6 +129,11 @@ class CalculateIPCprovision
     private function getProccess()
     {
         return $this->processValueRepository->whereQuery(['process_id', 'provisions'], ['state' => -1])->get()->toArray();
+    }
+
+    private function getProccessById($id)
+    {
+        return $this->processValueRepository->whereQuery(['process_id', 'provisions'], ['state' => -1, 'id' => $id])->get()->toArray();
     }
 
     private function getIPC($year, $month)

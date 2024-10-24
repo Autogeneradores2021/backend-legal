@@ -35,12 +35,16 @@ class ProcessStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return $this->validate->getRules();
+        $rules = $this->validate->getRules();
+        $rules['user_created'] = 'required|string|max:255';
+        return $rules;
     }
 
     public function messages()
     {
-        return $this->validate->getMessages();
+        $messages = $this->validate->getMessages();
+        $messages['user_created.required'] = 'Usuario es obligatorio';
+        return $messages;
     }
 
     protected function failedValidation(Validator $validator)

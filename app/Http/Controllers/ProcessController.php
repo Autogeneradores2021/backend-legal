@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProcessStoreRequest;
+use App\Http\Requests\ProcessUpdateRequest;
 use App\Services\ProcessService;
 use App\Utils\ResponseBuilder;
 use Illuminate\Http\Request;
@@ -200,7 +201,7 @@ class ProcessController extends Controller
      *     )
      * )
      */
-    public function update(ProcessStoreRequest $request, string $id)
+    public function update(ProcessUpdateRequest $request, string $id)
     {
         $process = $request->validated();
 

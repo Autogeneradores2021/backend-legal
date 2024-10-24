@@ -43,6 +43,9 @@ return new class extends Migration {
             $table->decimal('provisions', 20)->comment('valor de provision');
             $table->decimal('financial_report', 20)->comment('valor reporte al area financiera');
 
+            $table->string('year', 4);
+            $table->string('month', 15);
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,6 +28,10 @@ class Process extends Model
         'demand',
         'provisions',
         'financial_report',
+        'user_created',
+        'user_updated',
+        'year',
+        'month'
     ];
 
     /**

@@ -2,8 +2,12 @@
 
 namespace App\Observers;
 
+use App\Models\Ipc;
 use App\Models\Process;
+use App\Models\ProcessValue;
+use App\Repositories\IPCRepository;
 use App\Repositories\ProcessValueRepository;
+use App\Services\CalculateIPCprovision;
 use Illuminate\Support\Facades\Log;
 
 class ProcessObserver
@@ -29,13 +33,24 @@ class ProcessObserver
                 'state' => -1,
                 'provisions' => floatval($process->provisions),
                 'demand' => 0,
-                'financial_report' => 0
+                'financial_report' => 0,
+                'year' => $process->year,
+                'month' => $process->month,
             ];
 
             $this->processValueRepository->create($fieldsNew);
 
+
+            $iPCRepository = new IPCRepository(new Ipc());
+            $processValueRepository = new ProcessValueRepository(new ProcessValue());
+            $ipc = new CalculateIPCprovision($iPCRepository, $processValueRepository);
+            $ipc->calculateProccess([$fieldsNew], $process->year, $process->month);
+
+
         } catch (\Throwable $th) {
             Log::info("ProcessObserver : " . $th->getMessage() . ' - ' . $th->getLine());
+        } finally {
+
         }
     }
 
