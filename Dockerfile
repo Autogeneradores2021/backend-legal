@@ -111,8 +111,8 @@ RUN a2ensite default-ssl
 USER $USER
 WORKDIR $APP_HOME
 
-
-RUN ls
+# Crear upload
+RUN mkdir -p public/upload
 
 # Permisos
 #RUN chmod -R 777 $APP_HOME/storage
