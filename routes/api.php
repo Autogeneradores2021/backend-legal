@@ -36,3 +36,6 @@ Route::resource('ipc', IpcController::class);
 Route::resource('login', LoginController::class);
 
 
+Route::get('test', function (Request $request) {
+    return "ok";
+});
