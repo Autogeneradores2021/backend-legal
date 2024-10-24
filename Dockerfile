@@ -111,6 +111,10 @@ RUN a2ensite default-ssl
 USER $USER
 WORKDIR $APP_HOME
 
+
+# Copiar archivos fuente y archivo de configuración
+COPY --chown=${USERNAME}:${USERNAME} . $APP_HOME/
+
 # Crear upload
 RUN mkdir -p public/upload
 
