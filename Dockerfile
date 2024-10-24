@@ -111,9 +111,12 @@ RUN a2ensite default-ssl
 USER $USER
 WORKDIR $APP_HOME
 
+
+RUN ls
+
 # Permisos
-RUN chmod -R 777 $APP_HOME/storage
-RUN chmod -R 777 $APP_HOME/bootstrap
+#RUN chmod -R 777 $APP_HOME/storage
+#RUN chmod -R 777 $APP_HOME/bootstrap
 
 # instalar dependencias del proyecto
 RUN composer install --optimize-autoloader --no-dev
