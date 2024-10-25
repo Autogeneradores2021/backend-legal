@@ -142,6 +142,6 @@ return [
     ],
 
     'api_login' => env('API_LOGIN'),
-    'api_key_login' => env('API_KEY_LOGIN'),
+    'api_key_login' => env('API_KEY_LOGIN','$2y$12$jM4wyn7SF49I1My2jPPVaOwO/nJmjMzosIhEX8EVqV/4FHEqx7/gO'),
 
 ];
