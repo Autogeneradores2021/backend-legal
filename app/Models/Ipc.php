@@ -13,8 +13,7 @@ class Ipc extends Model
     protected $fillable = [
         'years',
         'month',
-        'ipc_percentage',
-        'ipc',
+        'monthly_variation',
         'user_created',
         'user_updated'
     ];

@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('month', 15);
             $table->double('ipc_percentage');
             $table->double('ipc');
+            $table->double('monthly_variation');
             $table->string('user_created', 255);
             $table->string('user_updated', 255)->nullable();
             $table->timestamps();

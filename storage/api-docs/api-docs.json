@@ -94,6 +94,51 @@
                 }
             }
         },
+        "/api/ipc-monthly-variation": {
+            "post": {
+                "tags": [
+                    "IPC"
+                ],
+                "summary": "Calcular la variacion del IPC de todos los meses de un año",
+                "operationId": "9a467b647d552af680eb8b1573eaef24",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body Description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "examples": {
+                                "result": {
+                                    "summary": "An result object.",
+                                    "value": {
+                                        "year": "2024"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
         "/api/ipc": {
             "get": {
                 "tags": [

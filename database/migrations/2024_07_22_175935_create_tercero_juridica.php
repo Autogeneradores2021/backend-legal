@@ -13,7 +13,8 @@ return new class extends Migration {
         Schema::create('persons', function (Blueprint $table) {
             $table->id();
             $table->string('full_name', 255);
-            $table->string('surnames', 255);
+            $table->string('surnames', 255)->nullable();
+            $table->string('business_name', 255)->nullable();
             $table->string('type_doc', 5);
             $table->string('number_doc', 20);
             $table->timestamp('created_at')->nullable();

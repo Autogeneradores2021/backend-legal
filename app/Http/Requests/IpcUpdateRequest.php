@@ -36,7 +36,7 @@ class IpcUpdateRequest extends FormRequest
         return [
             'years' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
             'month' => 'required|string|max:50',
-            'ipc_percentage' => 'required|numeric|min:0',
+            'monthly_variation' => 'required|numeric|min:-100',
             'user_updated' => 'required|string|max:255',
         ];
     }

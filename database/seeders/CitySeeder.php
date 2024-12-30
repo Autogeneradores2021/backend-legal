@@ -1012,11 +1012,11 @@ class CitySeeder extends Seeder
             ["region" => "Región Centro Oriente" ,"code_department" => "54","department" => "Norte de Santander", "code_city" => "54.8","city" => "Teorama"],
             ["region" => "Región Pacífico" ,"code_department" => "76","department" => "Valle del Cauca", "code_city" => "76.233","city" => "Dagua"],
             ["region" => "Región Centro Oriente" ,"code_department" => "54","department" => "Norte de Santander", "code_city" => "54.051","city" => "Arboledas"],
-            ["region" => "Región Pacífico" ,"code_department" => "76","department" => "Valle del Cauca", "code_city" => "76.318","city" => "Guacarí"], 
+            ["region" => "Región Pacífico" ,"code_department" => "76","department" => "Valle del Cauca", "code_city" => "76.318","city" => "Guacarí"],
         ];
 
         foreach ($municipios as $municipio) {
-            DB::connection('mysql2')->table('common_city')->insert($municipio);
+            DB::connection(env('DB_CONNECTION'))->table('city')->insert($municipio);
         }
 
     }

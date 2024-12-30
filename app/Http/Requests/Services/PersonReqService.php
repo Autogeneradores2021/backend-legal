@@ -11,9 +11,11 @@ class PersonReqService implements IRequest
     {
         return [
             'full_name' => 'required|string|max:255',
-            'surnames' => 'required|string|max:255',
+            'surnames' => 'nullable|string|max:255',
+            'business_name' => 'nullable|string|max:255',
             'type_doc' => 'required|string|max:5',
             'number_doc' => 'required|string|max:20',
+            'user'=> 'required|string|max:100',
         ];
     }
 

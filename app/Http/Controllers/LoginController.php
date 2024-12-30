@@ -66,16 +66,12 @@ class LoginController extends Controller
     public function store(UserLoginRequest $request)
     {
         $user = $request->validated();
-
         try {
             return $this->authService->login($user);
         } catch (\Throwable $th) {
             $message = $th->getMessage() . ' - ' . $th->getLine();
             return $this->response->status(500)->message($message)->success(false)->build();
         }
-
-
-
     }
 
     /**

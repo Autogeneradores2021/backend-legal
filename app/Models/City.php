@@ -9,12 +9,7 @@ class City extends Model
 {
     use HasFactory;
 
-
-    /**
-     * La tabla SUCURSAL tiene información relacionada con las cuentas de los bancos.
-     * @var string
-     */
-    protected $table = 'view_common_city';
+    protected $table = 'city';
 
     /**
      * The primary key for the model.
@@ -31,5 +26,5 @@ class City extends Model
      *
      * @var array
      */
-    protected $hidden = ['created_at', 'updated_at','region','code_department'];
+    protected $hidden = ['created_at', 'updated_at', 'region', 'code_department'];
 }
