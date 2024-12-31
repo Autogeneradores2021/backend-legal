@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -103,6 +104,18 @@ class Process extends Model
         return $this->processValues()->first();
     }
 
+    protected $useCustomCasts = false;
+
+    public function enableCustomCasts()
+    {
+        $this->useCustomCasts = true;
+    }
+
+    public function disableCustomCasts()
+    {
+        $this->useCustomCasts = false;
+    }
+
     /**
      * Casts
      */
@@ -110,9 +123,9 @@ class Process extends Model
     protected function casts(): array
     {
         return [
-            /* 'demand' => MoneyCast::class,
-             'provisions' => MoneyCast::class,
-             'financial_report' => MoneyCast::class,*/
+            'demand' => MoneyCast::class,
+            'provisions' => MoneyCast::class,
+            'financial_report' => MoneyCast::class,
         ];
     }
 }

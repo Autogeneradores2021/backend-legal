@@ -52,6 +52,18 @@ class ProcessValueRepository extends BaseRepository
         return json_decode($request->search, true);
     }
 
+
+    public function buildQuery($query, $key, $value)
+    {
+        if ($key == 'id') {
+            return $query->where($key, $value);
+        }
+        if ($key == 'process_id') {
+            return $query->where($key, $value);
+        }
+        return $query->where($key, 'like', '%' . $value . '%');
+    }
+
     public function search(Request $request)
     {
 

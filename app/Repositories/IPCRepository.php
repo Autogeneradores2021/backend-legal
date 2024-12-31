@@ -15,7 +15,7 @@ class IPCRepository extends BaseRepository
     public function search($search)
     {
         $result = $this->searchQuery($search);
-        return $result->orderBy('id')->paginate(12);
+        return $result->orderBy('id', 'desc')->paginate(12);
     }
 
 }

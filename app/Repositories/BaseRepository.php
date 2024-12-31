@@ -92,4 +92,15 @@ class BaseRepository implements BaseRepositoryInterface
         });
 
     }
+
+
+    public function disabledBefore()
+    {
+        return $this->model->update(['state' => 0]);
+    }
+
+    public function insert($data = [])
+    {
+        return $this->model->insert($data);
+    }
 }

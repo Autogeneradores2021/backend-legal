@@ -98,4 +98,18 @@ class ProcessRepository extends BaseRepository
         $process->delete();
     }
 
+    public function select($columns = [], $filter = ['id' => 0])
+    {
+        return $this->model->select($columns)->where($filter)->get();
+    }
+
+    public function selectCurrent($columns = [])
+    {
+        return $this->model
+            ->select($columns)
+            ->where('id', 9)
+            //->where('status_id', '!=', 4)
+            ->get();
+    }
+
 }

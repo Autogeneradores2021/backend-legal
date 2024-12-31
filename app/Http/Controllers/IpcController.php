@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\IpcStoreRequest;
 use App\Http\Requests\IpcUpdateRequest;
 use App\Services\IPCService;
+use App\Services\ProcessProvisionService;
 use App\Utils\ResponseBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @OA\Tag(
@@ -21,10 +23,16 @@ class IpcController extends Controller
 
     protected $iPCService;
 
-    public function __construct(ResponseBuilder $response, IPCService $iPCService)
-    {
+    protected $processProvisionService;
+
+    public function __construct(
+        ResponseBuilder $response,
+        IPCService $iPCService,
+        ProcessProvisionService $processProvisionService
+    ) {
         $this->response = $response;
         $this->iPCService = $iPCService;
+        $this->processProvisionService = $processProvisionService;
     }
 
     /**
@@ -114,10 +122,23 @@ class IpcController extends Controller
     {
         $ipc = $request->validated();
 
+
+        DB::beginTransaction();
+
         try {
+
             $result = $this->iPCService->create($ipc);
+
+            $this->processProvisionService->provision($ipc['years'], $ipc['month'], $ipc['monthly_variation']);
+
+            DB::commit();
+
             return $this->response->message(__('messages.query.insert'))->data($result)->build();
+
         } catch (\Throwable $th) {
+
+            DB::rollBack();
+
             $message = $th->getMessage() . ' - ' . $th->getLine();
             return $this->response->status(500)->message($message)->success(false)->build();
         }
