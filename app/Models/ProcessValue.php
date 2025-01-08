@@ -41,10 +41,11 @@ class ProcessValue extends Model
     // Accesor para formatear el precio
     protected function casts(): array
     {
-        return [
+        /*return [
             'demand' => MoneyCast::class,
             'provisions' => MoneyCast::class,
             'financial_report' => MoneyCast::class,
-        ];
+        ];*/
+        return [];
     }
 }

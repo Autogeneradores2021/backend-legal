@@ -122,10 +122,15 @@ class Process extends Model
     // Accesor para formatear el precio
     protected function casts(): array
     {
-        return [
-            'demand' => MoneyCast::class,
-            'provisions' => MoneyCast::class,
-            'financial_report' => MoneyCast::class,
-        ];
+        if ($this->useCustomCasts) {
+            return [
+                'demand' => MoneyCast::class,
+                'provisions' => MoneyCast::class,
+                'financial_report' => MoneyCast::class,
+            ];
+        }
+
+        return [];
+
     }
 }

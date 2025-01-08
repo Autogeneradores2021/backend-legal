@@ -17,21 +17,21 @@ class ProcessProvisionService
     {
         $this->processRepository = $processRepository;
         $this->processValueRepository = $processValueRepository;
+        $this->processRepository->disableCustomCasts();
     }
 
     private function getProcess()
     {
-        return $this->processRepository->selectCurrent(['id', 'provisions', 'demand']);
+        return $this->processRepository->selectCurrent(['id', 'provisions', 'demand', 'financial_report']);
     }
 
 
     private function provisionByIPC($provisionInicial, $variacionesIPC)
     {
-        \Log::info("*******");
-        \Log::info($provisionInicial);
-        \Log::info($variacionesIPC);
 
-        $provision = $provisionInicial;
+        $provisionInicial = str_replace('.', '', $provisionInicial);
+
+        $provision = (float) $provisionInicial;
 
         $provision *= (1 + $variacionesIPC / 100);
 
@@ -60,15 +60,23 @@ class ProcessProvisionService
 
         $processes = $this->calculateProvisions($ipc);
 
+        \Log::info("****HHHHHH***");
+        \Log::info(count($processes));
+
         $this->processValueRepository->disabledBefore();
 
         $processValues = [];
         foreach ($processes as $index => $process) {
+
+            $process['demand'] = str_replace('.', '', $process['demand']);
+            $process['financial_report'] = $process['provisions'];
+
             $processValues[] = [
                 'process_id' => $process['id'],
                 'state' => 1,
                 'provisions' => $process['provisions'],
                 'financial_report' => $process['provisions'],
+                'demand' => $process['demand'],
                 'ipc' => $ipc,
                 'month' => $month,
                 'year' => $year
@@ -78,7 +86,11 @@ class ProcessProvisionService
         $this->processValueRepository->insert($processValues);
 
 
+
         foreach ($processes as $index => $process) {
+            \Log::info("wwwwwwwwwwwww");
+            \Log::info($process);
+
             $this->processRepository->update($process['id'], [
                 'provisions' => $process['provisions'],
                 'financial_report' => $process['financial_report']

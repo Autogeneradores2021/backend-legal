@@ -13,6 +13,11 @@ class ProcessRepository extends BaseRepository
         parent::__construct($model);
     }
 
+    public function disableCustomCasts()
+    {
+        $this->model->disableCustomCasts();
+    }
+
     public function search($search)
     {
 

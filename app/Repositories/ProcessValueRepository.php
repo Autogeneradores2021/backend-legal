@@ -84,7 +84,7 @@ class ProcessValueRepository extends BaseRepository
 
         return $result
             ->where('state', '<>', -1)
-            ->orderBy('id', 'asc')
+            ->orderBy('id', 'desc')
             ->paginate(12)
             ->appends(['id_proceso' => $this->getKey($request, 'process_id')]);
 

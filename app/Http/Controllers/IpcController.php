@@ -135,6 +135,7 @@ class IpcController extends Controller
 
             return $this->response->message(__('messages.query.insert'))->data($result)->build();
 
+
         } catch (\Throwable $th) {
 
             DB::rollBack();
