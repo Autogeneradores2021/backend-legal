@@ -84,36 +84,25 @@ class ProcessValueRepository extends BaseRepository
 
         return $result
             ->where('state', '<>', -1)
+            ->whereNull('deleted_at')
             ->orderBy('id', 'desc')
             ->paginate(12)
             ->appends(['id_proceso' => $this->getKey($request, 'process_id')]);
 
     }
 
-    /*public function create($id, $fieldsOld, $fieldsNew)
+
+    public function update($id, array $data)
     {
+        return $this->model->where('id', $id)->update($data);
+    }
 
-        $create = false;
-        foreach ($fieldsNew as $field => $newValue) {
-            if ($fieldsOld[$field] != $newValue) {
-                $create = true;
-                break;
-            }
-        }
 
-        if ($create) {
-            $data = array_merge(
-                ['process_id' => $id, 'state' => 1],
-                $fieldsNew
-            );
 
-            ProcessValue::where('process_id', $id)
-                ->where('state', 1)->update(['state' => 0]);
-
-            ProcessValue::create($data);
-
-        }
-    }*/
+    public function create($data)
+    {
+        return $this->model->create($data);
+    }
 
 
 

@@ -27,7 +27,7 @@ class ProcessValueController extends Controller
 
     /**
      * @OA\Get(
-     *     tags={"Values"},
+     *     tags={"Values-Process"},
      *     path="/api/value-process",
      *     summary="Get all cost o values of process",
      *     @OA\Parameter(
@@ -103,11 +103,70 @@ class ProcessValueController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     tags={"Values-Process"},
+     *     path="/api/value-process/{id}",
+     *     summary="Update value process",
+     *     @OA\Parameter(
+     *         name="x-token",
+     *         in="header",
+     *         description="Key API",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"month", "process_id", "demand", "provisions", "financial_report"},
+     *             @OA\Property(property="month", type="string", example="enero"),
+     *             @OA\Property(property="year", type="string", example="2024"),
+     *             @OA\Property(property="user", type="string", example=""),
+     *             @OA\Property(property="process_id", type="integer", example=9),
+     *             @OA\Property(property="demand", type="integer", example=1000),
+     *             @OA\Property(property="provisions", type="integer", example=1000),
+     *             @OA\Property(property="financial_report", type="integer", example=1000),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Recurso actualizado con éxito",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="data", ref="Process")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Recurso no encontrado"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Solicitud inválida"
+     *     )
+     * )
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+
+            $result = $this->processValueService->updateValuesManual($id, $request);
+
+            return $this->response->data($result)->message("Valores actualizados.")->build();
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage() . ' - ' . $th->getLine();
+            return $this->response->status(500)->message($message)->success(false)->build();
+        }
+
     }
 
     /**

@@ -20,7 +20,8 @@ class ProcessValue extends Model
         'financial_report',
         'ipc',
         'month',
-        'year'
+        'year',
+        'user'
     ];
 
     /**

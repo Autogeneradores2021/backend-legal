@@ -94,6 +94,11 @@ class ProcessRepository extends BaseRepository
 
     }
 
+    public function updateByAttr($id, array $data)
+    {
+        return $this->model->where('id', $id)->update($data);
+    }
+
     public function delete($id)
     {
         $process = Process::findOrFail($id);
