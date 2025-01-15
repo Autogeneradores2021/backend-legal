@@ -126,7 +126,10 @@ RUN chmod -R 777 $APP_HOME/bootstrap
 RUN composer install --optimize-autoloader --no-dev
 
 #Limpiar cache
-#RUN php artisan optimize:clear
+RUN php artisan optimize:clear
+
+#Directorio de almacenamiento público esté enlazado
+RUN php artisan storage:link
 
 EXPOSE 8011
 
