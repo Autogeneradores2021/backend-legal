@@ -20,6 +20,11 @@ class ProcessService
         return $this->processRepository->search($search);
     }
 
+    public function searchExport($search)
+    {
+        return $this->processRepository->searchExport($search);
+    }
+
     public function all()
     {
         return $this->processRepository->all();
@@ -40,6 +45,6 @@ class ProcessService
         return $this->processRepository->delete($id);
     }
 
-  
+
 
 }

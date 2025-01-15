@@ -30,6 +30,8 @@ Route::resource('possibility_failure', PossibilityFailureController::class);
 Route::resource('office', OfficeController::class);
 Route::resource('person', PersonController::class);
 Route::resource('legal-process', ProcessController::class);
+Route::get('legal-process-export', [ProcessController::class, 'export']);
+
 Route::resource('value-process', ProcessValueController::class);
 Route::resource('common', ParameterController::class);
 Route::resource('city', CityController::class);

@@ -1085,6 +1085,41 @@
                 }
             }
         },
+        "/api/legal-process-export": {
+            "get": {
+                "tags": [
+                    "Legal-Process"
+                ],
+                "summary": "Export data process",
+                "operationId": "751665d979b6e0fda97f22693d794208",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
         "/api/value-process": {
             "get": {
                 "tags": [

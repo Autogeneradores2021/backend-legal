@@ -51,6 +51,38 @@ class ProcessRepository extends BaseRepository
         return $result->paginate();
     }
 
+    public function searchExport($search)
+    {
+
+        $result = Process::when($search, function ($query, $search) {
+
+            $data = json_decode($search, true);
+            foreach ($data as $key => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $subKey => $subValue) {
+                        $query->whereHas($key, function (EloquentBuilder $query) use ($subKey, $subValue) {
+                            $this->buildQuery($query, $subKey, $subValue);
+                        });
+                    }
+                } else {
+                    $this->buildQuery($query, $key, $value);
+                }
+            }
+
+        })
+            ->with('action')
+            ->with('office')
+            ->with('demanding')
+            ->with('defendant')
+            ->with('attorney')
+            ->with('classProcces')
+            ->with('status')
+            ->with('failurePossibility')
+            ->with('city');
+
+        return $result->skip(0)->take(10000)->get();
+    }
+
     public function all()
     {
         return Process::paginate();

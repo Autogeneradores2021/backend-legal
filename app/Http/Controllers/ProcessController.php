@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProcessExport;
 use App\Http\Requests\ProcessStoreRequest;
 use App\Http\Requests\ProcessUpdateRequest;
+use App\Services\ExportService;
 use App\Services\ProcessService;
 use App\Utils\ResponseBuilder;
 use Illuminate\Http\Request;
@@ -23,10 +25,17 @@ class ProcessController extends Controller
     protected $response;
     protected $processService;
 
-    public function __construct(ResponseBuilder $response, ProcessService $processService)
-    {
+    private $exportService;
+
+    public function __construct(
+        ResponseBuilder $response,
+        ProcessService $processService,
+        ExportService $exportService
+
+    ) {
         $this->response = $response;
         $this->processService = $processService;
+        $this->exportService = $exportService;
     }
 
     /**
@@ -254,6 +263,58 @@ class ProcessController extends Controller
         try {
             $this->processService->delete($id);
             return $this->response->message(__('messages.query.delete'))->build();
+        } catch (\Throwable $th) {
+            $message = $th->getMessage() . ' - ' . $th->getLine();
+            return $this->response->status(500)->message($message)->success(false)->build();
+        }
+    }
+
+
+    /**
+     * @OA\Get(
+     *     tags={"Legal-Process"},
+     *     path="/api/legal-process-export",
+     *     summary="Export data process",
+     *     @OA\Parameter(
+     *         name="x-token",
+     *         in="header",
+     *         description="Key API",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *      ),
+     *       @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="",
+     *         required=false,
+     *         example=""
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description=""
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="An error has occurred."
+     *     )
+     * )
+     */
+    public function export(Request $request)
+    {
+        try {
+
+
+            $result = $this->processService->searchExport($request->search);
+
+            $exportable = new ProcessExport();
+            $exportable->setData($result);
+
+            $response = $this->exportService->export($exportable);
+
+            return $this->response->data($response)->build();
+
         } catch (\Throwable $th) {
             $message = $th->getMessage() . ' - ' . $th->getLine();
             return $this->response->status(500)->message($message)->success(false)->build();
