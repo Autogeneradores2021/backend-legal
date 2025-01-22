@@ -43,7 +43,6 @@ class ProcessProvisionService extends ProvisionService
         foreach ($processes as $index => $process) {
 
             $process['demand'] = str_replace('.', '', $process['demand']);
-            $process['financial_report'] = $process['provisions'];
 
             $processValues[] = [
                 'process_id' => $process['id'],
@@ -59,11 +58,10 @@ class ProcessProvisionService extends ProvisionService
 
         $this->processValueRepository->insert($processValues);
 
-
         foreach ($processes as $index => $process) {
             $this->processRepository->update($process['id'], [
                 'provisions' => $process['provisions'],
-                'financial_report' => $process['financial_report']
+                'financial_report' => $process['provisions']
             ]);
         }
 
