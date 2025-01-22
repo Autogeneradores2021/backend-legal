@@ -2,41 +2,18 @@
 
 namespace App\Services;
 
-use App\Repositories\ProcessRepository;
 use App\Repositories\ProcessValueRepository;
 
-
-class ProcessProvisionService
+class ProcessProvisionService extends ProvisionService
 {
-
-    protected $processRepository;
 
     protected $processValueRepository;
 
-    public function __construct(ProcessRepository $processRepository, ProcessValueRepository $processValueRepository)
+    public function __construct(ProcessValueRepository $processValueRepository)
     {
-        $this->processRepository = $processRepository;
         $this->processValueRepository = $processValueRepository;
-        $this->processRepository->disableCustomCasts();
     }
 
-    private function getProcess()
-    {
-        return $this->processRepository->selectCurrent(['id', 'provisions', 'demand', 'financial_report']);
-    }
-
-
-    private function provisionByIPC($provisionInicial, $variacionesIPC)
-    {
-
-        $provisionInicial = str_replace('.', '', $provisionInicial);
-
-        $provision = (float) $provisionInicial;
-
-        $provision *= (1 + $variacionesIPC / 100);
-
-        return round($provision, 2);
-    }
 
     private function calculateProvisions($ipc)
     {
@@ -59,9 +36,6 @@ class ProcessProvisionService
     {
 
         $processes = $this->calculateProvisions($ipc);
-
-        \Log::info("****HHHHHH***");
-        \Log::info(count($processes));
 
         $this->processValueRepository->disabledBefore();
 
@@ -86,17 +60,12 @@ class ProcessProvisionService
         $this->processValueRepository->insert($processValues);
 
 
-
         foreach ($processes as $index => $process) {
-            \Log::info("wwwwwwwwwwwww");
-            \Log::info($process);
-
             $this->processRepository->update($process['id'], [
                 'provisions' => $process['provisions'],
                 'financial_report' => $process['financial_report']
             ]);
         }
-
 
     }
 

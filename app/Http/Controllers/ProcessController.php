@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProcessExport;
+use App\Http\Requests\ProcessProvisionRequest;
 use App\Http\Requests\ProcessStoreRequest;
 use App\Http\Requests\ProcessUpdateRequest;
 use App\Services\ExportService;
+use App\Services\ProcessProvisionByIdService;
 use App\Services\ProcessService;
+use App\Utils\MonthAsInteger;
 use App\Utils\ResponseBuilder;
 use Illuminate\Http\Request;
 
@@ -27,15 +30,19 @@ class ProcessController extends Controller
 
     private $exportService;
 
+    private $processProvisionByIdService;
+
     public function __construct(
         ResponseBuilder $response,
         ProcessService $processService,
-        ExportService $exportService
+        ExportService $exportService,
+        ProcessProvisionByIdService $processProvisionByIdService
 
     ) {
         $this->response = $response;
         $this->processService = $processService;
         $this->exportService = $exportService;
+        $this->processProvisionByIdService = $processProvisionByIdService;
     }
 
     /**
@@ -126,10 +133,21 @@ class ProcessController extends Controller
     {
         $process = $request->validated();
 
+        \DB::beginTransaction();
+
         try {
+
             $result = $this->processService->create($process);
+
+            $month = MonthAsInteger::getMonthAsInteger($result['month']);
+
+            $this->processProvisionByIdService->provisionById($result['id'], $result['year'], $month, true);
+
+            \DB::commit();
+
             return $this->response->message(__('messages.query.insert'))->data($result)->build();
         } catch (\Throwable $th) {
+            \DB::rollBack();
             $message = $th->getMessage() . ' - ' . $th->getLine();
             return $this->response->status(500)->message($message)->success(false)->build();
         }
@@ -317,6 +335,52 @@ class ProcessController extends Controller
 
         } catch (\Throwable $th) {
             $message = $th->getMessage() . ' - ' . $th->getLine();
+            return $this->response->status(500)->message($message)->success(false)->build();
+        }
+    }
+
+
+    /**
+     * @OA\Post(
+     *     tags={"Legal-Process"},
+     *     path="/api/provision-simulate",
+     *     summary="Provision Simulate By Process",
+     *      @OA\Parameter(
+     *         name="x-token",
+     *         in="header",
+     *         description="Key API",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *      ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Request Body Description",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"process_id":"9","start_year":2024,"start_month":1}, summary="An result object."),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description=""
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="An error has occurred."
+     *     )
+     * )
+     */
+    public function provisionSimulate(ProcessProvisionRequest $request)
+    {
+        try {
+
+            $data = $request->validated();
+
+            return $this->processProvisionByIdService->provisionById($data['process_id'], $data['start_year'], $data['start_month'], false);
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
             return $this->response->status(500)->message($message)->success(false)->build();
         }
     }

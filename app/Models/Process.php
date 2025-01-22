@@ -32,7 +32,8 @@ class Process extends Model
         'user_created',
         'user_updated',
         'year',
-        'month'
+        'month',
+        'isactive'
     ];
 
     /**

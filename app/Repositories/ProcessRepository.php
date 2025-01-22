@@ -149,9 +149,17 @@ class ProcessRepository extends BaseRepository
     {
         return $this->model
             ->select($columns)
-            ->where('id', 9)
-            //->where('status_id', '!=', 4)
+            ->where('isactive', '=', 1)
             ->get();
+    }
+
+    public function selectProcessById(int $id, $columns = [])
+    {
+        return $this->model
+            ->select($columns)
+            ->where('isactive', '=', 1)
+            ->where('id', $id)
+            ->first();
     }
 
 }

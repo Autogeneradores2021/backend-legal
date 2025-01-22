@@ -10,8 +10,11 @@ class ProcessService
 
     protected $processRepository;
 
-    public function __construct(ProcessRepository $processRepository)
-    {
+    protected $processProvisionByIdService;
+
+    public function __construct(
+        ProcessRepository $processRepository
+    ) {
         $this->processRepository = $processRepository;
     }
 

@@ -35,7 +35,8 @@ class ProcessExport implements ExportableInterface
                 'Instancia' => $item->status->name,
                 'Pos.Fallo adverso' => $item->failurePossibility->name,
                 'NIIF - Pos.Fallo adverso' => $item->failure_possibility_niif == "1" ? "Si" : "No",
-                'Apoderado' => $item->attorney->full_name
+                'Apoderado' => $item->attorney->full_name,
+                'Estado' => $item->isactive == "1" ? "Activo" : "Terminado"
             ];
         });
     }
@@ -65,7 +66,8 @@ class ProcessExport implements ExportableInterface
             'Instancia',
             'Pos.Fallo adverso',
             'NIIF - Pos.Fallo adverso',
-            'Apoderado'
+            'Apoderado',
+            'Estado'
         ];
     }
 }

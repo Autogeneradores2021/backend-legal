@@ -1120,6 +1120,53 @@
                 }
             }
         },
+        "/api/provision-simulate": {
+            "post": {
+                "tags": [
+                    "Legal-Process"
+                ],
+                "summary": "Provision Simulate By Process",
+                "operationId": "1e923fab47a3d000287e9bd2811244f5",
+                "parameters": [
+                    {
+                        "name": "x-token",
+                        "in": "header",
+                        "description": "Key API",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body Description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "examples": {
+                                "result": {
+                                    "summary": "An result object.",
+                                    "value": {
+                                        "process_id": "9",
+                                        "start_year": 2024,
+                                        "start_month": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "default": {
+                        "description": "An error has occurred."
+                    }
+                }
+            }
+        },
         "/api/value-process": {
             "get": {
                 "tags": [

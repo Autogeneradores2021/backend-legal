@@ -53,12 +53,13 @@ class IPCMonthlyVariationController extends Controller
     public function monthlyVariation(Request $request)
     {
 
-        try {
+        return "deprecated";
+        /*try {
             $result = $this->iPCMonthlyVariationService->calculerVariation($request->year);
             return $this->response->data($result)->build();
         } catch (\Throwable $th) {
             $message = $th->getMessage() . ' - ' . $th->getLine();
             return $this->response->status(500)->message($message)->success(false)->build();
-        }
+        }*/
     }
 }

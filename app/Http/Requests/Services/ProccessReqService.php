@@ -30,7 +30,9 @@ class ProccessReqService implements IRequest
             'financial_report' => 'required|numeric',
 
             'year' => 'required|string|max:4',
-            'month' => 'required|string|max:15'
+            'month' => 'required|string|max:15',
+
+            'isactive' => 'required|numeric|max:1'
 
         ];
     }

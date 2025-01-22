@@ -17,7 +17,6 @@ class ProcessObserver
 
     public function __construct(ProcessValueRepository $processValueRepository)
     {
-        Log::info("HOLAAAAA");
         $this->processValueRepository = $processValueRepository;
     }
 
@@ -27,25 +26,25 @@ class ProcessObserver
     public function created(Process $process): void
     {
         try {
+            /*
+                        $fieldsNew = [
+                            'process_id' => $process->id,
+                            'state' => -1,
+                            'provisions' => floatval($process->provisions),
+                            'demand' => 0,
+                            'financial_report' => 0,
+                            'year' => $process->year,
+                            'month' => $process->month,
+                        ];
 
-            $fieldsNew = [
-                'process_id' => $process->id,
-                'state' => -1,
-                'provisions' => floatval($process->provisions),
-                'demand' => 0,
-                'financial_report' => 0,
-                'year' => $process->year,
-                'month' => $process->month,
-            ];
-
-            $this->processValueRepository->create($fieldsNew);
+                        $this->processValueRepository->create($fieldsNew);
 
 
-            $iPCRepository = new IPCRepository(new Ipc());
-            $processValueRepository = new ProcessValueRepository(new ProcessValue());
-            $ipc = new CalculateIPCprovision($iPCRepository, $processValueRepository);
-            $ipc->calculateProccess([$fieldsNew], $process->year, $process->month);
-
+                        $iPCRepository = new IPCRepository(new Ipc());
+                        $processValueRepository = new ProcessValueRepository(new ProcessValue());
+                        $ipc = new CalculateIPCprovision($iPCRepository, $processValueRepository);
+                        $ipc->calculateProccess([$fieldsNew], $process->year, $process->month);
+            */
 
         } catch (\Throwable $th) {
             Log::info("ProcessObserver : " . $th->getMessage() . ' - ' . $th->getLine());
@@ -60,19 +59,19 @@ class ProcessObserver
     public function updated(Process $process): void
     {
         try {
+            /*
+                        $fieldsOld = [
+                            'demand' => $process->getOriginal('demand'),
+                            'provisions' => $process->getOriginal('provisions'),
+                            'financial_report' => $process->getOriginal('financial_report'),
+                        ];
 
-            $fieldsOld = [
-                'demand' => $process->getOriginal('demand'),
-                'provisions' => $process->getOriginal('provisions'),
-                'financial_report' => $process->getOriginal('financial_report'),
-            ];
-
-            $fieldsNew = [
-                'demand' => $process->demand,
-                'provisions' => $process->provisions,
-                'financial_report' => $process->financial_report,
-            ];
-
+                        $fieldsNew = [
+                            'demand' => $process->demand,
+                            'provisions' => $process->provisions,
+                            'financial_report' => $process->financial_report,
+                        ];
+            */
             // $this->processValueRepository->create($process->id, $fieldsOld, $fieldsNew);
         } catch (\Throwable $th) {
             Log::info("ProcessObserver : " . $th->getMessage() - $th->getLine());

@@ -46,6 +46,9 @@ return new class extends Migration {
             $table->string('year', 4);
             $table->string('month', 15);
 
+
+            $table->char('isActive', 1)->comment('1 es activo,0 es finalizado');
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 

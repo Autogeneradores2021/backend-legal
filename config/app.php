@@ -127,21 +127,21 @@ return [
      * Meses con su respectiva posición
      */
     'months' => [
-        'Enero' => 1,
-        'Febrero' => 2,
-        'Marzo' => 3,
-        'Abril' => 4,
-        'Mayo' => 5,
-        'Junio' => 6,
-        'Julio' => 7,
-        'Agosto' => 8,
-        'Septiembre' => 9,
-        'Octubre' => 10,
-        'Noviembre' => 11,
-        'Diciembre' => 12
+        'Enero' => '01',
+        'Febrero' => '02',
+        'Marzo' => '03',
+        'Abril' => '04',
+        'Mayo' => '05',
+        'Junio' => '06',
+        'Julio' => '07',
+        'Agosto' => '08',
+        'Septiembre' => '09',
+        'Octubre' => '10',
+        'Noviembre' => '11',
+        'Diciembre' => '12'
     ],
 
     'api_login' => env('API_LOGIN'),
-    'api_key_login' => env('API_KEY_LOGIN','$2y$12$jM4wyn7SF49I1My2jPPVaOwO/nJmjMzosIhEX8EVqV/4FHEqx7/gO'),
+    'api_key_login' => env('API_KEY_LOGIN', '$2y$12$jM4wyn7SF49I1My2jPPVaOwO/nJmjMzosIhEX8EVqV/4FHEqx7/gO'),
 
 ];

@@ -127,6 +127,10 @@ class IpcController extends Controller
 
         try {
 
+            $months = config('app.months');
+
+            $ipc['year_month'] = $ipc['years'] . $months[$ipc['month']];
+
             $result = $this->iPCService->create($ipc);
 
             $this->processProvisionService->provision($ipc['years'], $ipc['month'], $ipc['monthly_variation']);

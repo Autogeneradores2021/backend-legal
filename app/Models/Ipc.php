@@ -14,6 +14,7 @@ class Ipc extends Model
         'years',
         'month',
         'monthly_variation',
+        'year_month',
         'user_created',
         'user_updated'
     ];
